@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3034;
 
 // Middleware
 app.use(cors());
@@ -14,10 +14,10 @@ app.use(express.json());
 
 // PostgreSQL connection
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: "postgres",
-    database: process.env.DB_NAME,
-    password:"admin123",
+    user: process.env.DB_USER || 'postgres',
+    host: process.env.DB_HOST || 'postgres',
+    database: process.env.DB_NAME || 'staff_hub',
+    password:process.env.DB_PASSWORD || 'admin123',
     port: process.env.DB_PORT || 5432
 });
 
