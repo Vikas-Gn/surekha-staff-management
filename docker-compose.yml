@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: staff_postgres
+    ports:
+      - "5803:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: staffdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  backend:
+    build: ./Backend
+    container_name: staff_backend
+    ports:
+      - "3034:3034"
+    environment:
+      DB_USER: postgres
+      DB_NAME: staffdb
+      DB_PORT: 5432
+    depends_on:
+      - postgres
+
+  staff:
+    build: ./Staff
+    container_name: staff_frontend
+    ports:
+      - "8003:80"  # Assuming React dev server runs on 3000
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+
