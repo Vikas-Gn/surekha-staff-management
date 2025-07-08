@@ -5,7 +5,7 @@ services:
     image: postgres:14
     container_name: staff_postgres
     ports:
-      - "5803:5432"
+      - "5608:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin123
@@ -18,7 +18,7 @@ services:
     build: ./Backend
     container_name: staff_backend
     ports:
-      - "3034:3034"
+      - "3608:3608"
     environment:
       DB_USER: postgres
       DB_NAME: staffdb
@@ -30,7 +30,7 @@ services:
     build: ./Staff
     container_name: staff_frontend
     ports:
-      - "8003:80"  # Assuming React dev server runs on 3000
+      - "8616:80"  # Assuming React dev server runs on 3000
     stdin_open: true
     tty: true
     depends_on:
